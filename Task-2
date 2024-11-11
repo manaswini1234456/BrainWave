@@ -1,0 +1,197 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Patient Class
+class Patient {
+    String patientId;
+    String name;
+    int age;
+    String gender;
+    String contact;
+    String medicalHistory;
+
+    public Patient(String patientId, String name, int age, String gender, String contact, String medicalHistory) {
+        this.patientId = patientId;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.contact = contact;
+        this.medicalHistory = medicalHistory;
+    }
+
+    public String toString() {
+        return "ID: " + patientId + ", Name: " + name + ", Age: " + age + ", Gender: " + gender + ", Contact: " + contact;
+    }
+}
+
+// Appointment Class
+class Appointment {
+    String appointmentId;
+    String patientId;
+    String doctorName;
+    String date;
+    String time;
+
+    public Appointment(String appointmentId, String patientId, String doctorName, String date, String time) {
+        this.appointmentId = appointmentId;
+        this.patientId = patientId;
+        this.doctorName = doctorName;
+        this.date = date;
+        this.time = time;
+    }
+
+    public String toString() {
+        return "Appointment ID: " + appointmentId + ", Patient ID: " + patientId + ", Doctor: " + doctorName + ", Date: " + date + ", Time: " + time;
+    }
+}
+
+// Electronic Health Records (EHR) Class
+class HealthRecord {
+    String recordId;
+    String patientId;
+    String diagnosis;
+    String treatment;
+    String prescription;
+
+    public HealthRecord(String recordId, String patientId, String diagnosis, String treatment, String prescription) {
+        this.recordId = recordId;
+        this.patientId = patientId;
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.prescription = prescription;
+    }
+
+    public String toString() {
+        return "Record ID: " + recordId + ", Patient ID: " + patientId + ", Diagnosis: " + diagnosis + ", Treatment: " + treatment + ", Prescription: " + prescription;
+    }
+}
+
+// Billing and Invoicing Class
+class Bill {
+    String billId;
+    String patientId;
+    double amount;
+    boolean isPaid;
+
+    public Bill(String billId, String patientId, double amount) {
+        this.billId = billId;
+        this.patientId = patientId;
+        this.amount = amount;
+        this.isPaid = false;
+    }
+
+    public void payBill() {
+        this.isPaid = true;
+    }
+
+    public String toString() {
+        return "Bill ID: " + billId + ", Patient ID: " + patientId + ", Amount: $" + amount + ", Paid: " + (isPaid ? "Yes" : "No");
+    }
+}
+
+// Inventory Management for Medical Supplies
+class InventoryItem {
+    String itemId;
+    String itemName;
+    int quantity;
+
+    public InventoryItem(String itemId, String itemName, int quantity) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.quantity = quantity;
+    }
+
+    public void restock(int amount) {
+        this.quantity += amount;
+    }
+
+    public String toString() {
+        return "Item ID: " + itemId + ", Name: " + itemName + ", Quantity: " + quantity;
+    }
+}
+
+// Staff Management
+class Staff {
+    String staffId;
+    String name;
+    String role;
+    String contact;
+
+    public Staff(String staffId, String name, String role, String contact) {
+        this.staffId = staffId;
+        this.name = name;
+        this.role = role;
+        this.contact = contact;
+    }
+
+    public String toString() {
+        return "Staff ID: " + staffId + ", Name: " + name + ", Role: " + role + ", Contact: " + contact;
+    }
+}
+
+// Main Hospital Management System
+public class HospitalManagementSystem {
+    static ArrayList<Patient> patients = new ArrayList<>();
+    static ArrayList<Appointment> appointments = new ArrayList<>();
+    static ArrayList<HealthRecord> healthRecords = new ArrayList<>();
+    static ArrayList<Bill> bills = new ArrayList<>();
+    static ArrayList<InventoryItem> inventory = new ArrayList<>();
+    static ArrayList<Staff> staffList = new ArrayList<>();
+
+    // Patient Registration
+    public static void registerPatient(String id, String name, int age, String gender, String contact, String medicalHistory) {
+        patients.add(new Patient(id, name, age, gender, contact, medicalHistory));
+        System.out.println("Patient Registered: " + name);
+    }
+
+    // Appointment Scheduling
+    public static void scheduleAppointment(String appointmentId, String patientId, String doctorName, String date, String time) {
+        appointments.add(new Appointment(appointmentId, patientId, doctorName, date, time));
+        System.out.println("Appointment Scheduled with Dr. " + doctorName + " on " + date);
+    }
+
+    // Add Health Record
+    public static void addHealthRecord(String recordId, String patientId, String diagnosis, String treatment, String prescription) {
+        healthRecords.add(new HealthRecord(recordId, patientId, diagnosis, treatment, prescription));
+        System.out.println("Health Record Added for Patient ID: " + patientId);
+    }
+
+    // Billing and Invoicing
+    public static void createBill(String billId, String patientId, double amount) {
+        bills.add(new Bill(billId, patientId, amount));
+        System.out.println("Bill Generated for Patient ID: " + patientId);
+    }
+
+    // Inventory Management
+    public static void addInventoryItem(String itemId, String itemName, int quantity) {
+        inventory.add(new InventoryItem(itemId, itemName, quantity));
+        System.out.println("Inventory Item Added: " + itemName);
+    }
+
+    // Staff Management
+    public static void addStaff(String staffId, String name, String role, String contact) {
+        staffList.add(new Staff(staffId, name, role, contact));
+        System.out.println("Staff Added: " + name + " (" + role + ")");
+    }
+
+    // Display all patients
+    public static void displayPatients() {
+        System.out.println("Patient List:");
+        for (Patient p : patients) {
+            System.out.println(p);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Sample data for testing
+        registerPatient("P001", "John Doe", 29, "Male", "123-456-7890", "No allergies");
+        scheduleAppointment("A001", "P001", "Smith", "2024-11-15", "10:30 AM");
+        addHealthRecord("R001", "P001", "Fever", "Rest and hydration", "Paracetamol");
+        createBill("B001", "P001", 250.0);
+        addInventoryItem("I001", "Gloves", 100);
+        addStaff("S001", "Alice", "Nurse", "321-654-0987");
+
+        // Display patient list
+        displayPatients();
+    }
+}
